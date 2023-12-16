@@ -1,0 +1,178 @@
+// Calculates a = x*y
+// a is a local variable
+// x & y are static variables
+
+// Put your code here.
+
+// Compare the absolute values of two integers (static 0 and static 1)
+// Push the value at static 0 onto the stack
+push static 0	
+
+// Push the constant 0 onto the stack
+push constant 0	
+
+// Compare the top two stack values: static 0 > 0
+gt
+
+// If the result is true (static 0 > 0), go to 1ST
+if-goto 1ST
+
+// If static 0 is not greater than 0, it might be negative, so negate it
+push static 0
+neg
+pop temp 0
+goto ABS2ND
+
+// Label 1ST: static 0 is greater than or equal to 0
+label 1ST
+
+// Push the value at static 0 onto the stack (again)
+push static 0
+
+// Pop the value into temp 0
+pop temp 0
+goto ABS2ND
+label ABS2ND
+
+// Push the value at static 1 onto the stack
+push static 1
+
+// Push the constant 0 onto the stack
+push constant 0
+
+// Compare the top two stack values: static 1 > 0
+gt
+
+// If the result is true (static 1 > 0), go to 2ND
+if-goto 2ND
+
+// If static 1 is not greater than 0, it might be negative, so negate it
+push static 1
+neg 
+pop temp 1
+goto 1ST_2ND
+
+// Label 2ND: static 1 is greater than or equal to 0
+label 2ND
+
+// Push the value at static 1 onto the stack (again)
+push static 1 
+
+// Pop the value into temp 1
+pop temp 1
+goto 1ST_2ND
+
+label 1ST_2ND
+// Push temp 0 (absolute value of static 0)
+push temp 0
+// Push temp 1 (absolute value of static 1)
+push temp 1
+
+// Compare the top two stack values: temp 0 < temp 1
+lt 
+
+// If the result is true (temp 0 < temp 1), go to SWAP
+if-goto SWAP
+
+// If temp 0 is not less than temp 1, go to RESET
+goto RESET
+
+// Label SWAP: Swap temp 0 and temp 1
+label SWAP
+push temp 0
+push temp 1
+
+// Swap the top two stack values: temp 0, temp 1 -> temp 1, temp 0
+pop temp 0
+pop temp 1
+goto RESET
+
+// Label RESET: Initialize temp 2 to 0
+label RESET
+push constant 0
+pop temp 2
+
+// Label CHECKTEMP: Check if temp 1 (absolute value of static 1) is greater than 0
+label CHECKTEMP
+push temp 1
+push constant 0
+
+// Compare the top two stack values: temp 1 > 0
+gt 
+
+// If the result is true (temp 1 > 0), go to LOOP
+if-goto LOOP 
+
+// If temp 1 is not greater than 0, go to END_LOOP
+goto ENDLOOP
+
+// Label LOOP: Perform a loop operation
+label LOOP
+push temp 2
+push temp 0
+
+// Add temp 2 and temp 0
+add
+pop temp 2 
+push temp 1
+push constant 1
+
+// Subtract 1 from temp 1 (decrement temp 1)
+sub
+pop temp 1
+goto CHECKTEMP
+
+// Label END_LOOP: End of the loop
+label ENDLOOP
+
+// Compare static 0 (original value) with 0: static 0 > 0
+push static 0
+push constant 0
+gt
+
+// If one operand is positive, go to POSITIVE
+if-goto POSITIVE
+
+// Compare static 1 (original value) with 0: static 1 > 0
+push static 1 
+push constant 0
+gt 
+
+// If one operand is positive, go to POSITIVESIGN
+if-goto POSITIVESIGN
+
+// If both operands have the same sign, go to SAME
+goto SAME
+
+// Label POSITIVE: One operand is positive
+label POSITIVE
+push static 1
+push constant 0
+
+// Compare static 1 (original value) with 0: static 1 > 0
+gt
+if-goto SAME
+
+// If both operands have different signs, negate temp 2 and store it in local 0
+goto POSITIVESIGN
+
+// Label POSITIVESIGN: Both operands have different signs
+label POSITIVESIGN
+
+// Negate temp 2 (absolute difference) and store it in local 0
+push temp 2
+neg 
+pop local 0
+goto END
+
+// Label SAME: Both operands have the same sign
+label SAME
+
+// Store temp 2 (absolute difference) in local 0
+push temp 2
+pop local 0
+goto END
+
+// Label END: End of the code
+label END
+goto END

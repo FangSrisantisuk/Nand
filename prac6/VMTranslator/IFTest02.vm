@@ -1,0 +1,18 @@
+push constant 0 
+pop static 0 
+push constant 0
+pop static 1 
+
+push constant 10
+push constant 1 
+push constant 0
+
+eq
+if-goto pop0
+pop static 1
+goto end
+
+label pop0
+pop static 0
+
+label end

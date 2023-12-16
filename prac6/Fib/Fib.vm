@@ -1,0 +1,36 @@
+// Contains a function Fib.fib that calculates and returns the nth Fibonacci number recursively
+// n is supplied as an argument
+
+// Put your code here.
+
+function Fib.fib 1 
+// Check if n is less than 2 (base case)
+push argument 0
+push constant 2 
+lt
+if-goto basecase
+
+// Recursive case: Calculate Fib(n-1) and store it in local 0
+push argument 0
+push constant 1 
+sub 
+call Fib.fib 1
+pop local 0
+
+
+// Recursive case: Calculate Fib(n-2) and add it to Fib(n-1)
+push argument 0
+push constant 2
+sub 
+call Fib.fib 1
+push local 0
+add 
+
+// Return the result of Fib(n)
+return 
+
+// Base case label
+label basecase
+// If n is less than 2, return n as the Fibonacci number
+push argument 0
+return 

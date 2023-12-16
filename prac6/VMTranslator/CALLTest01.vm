@@ -1,0 +1,21 @@
+push constant 0
+neg
+call CALLTest01.Abs 1
+pop static 0
+goto end
+
+function CALLTest02.Abs 1
+push argument 0
+push constant 0 
+lt
+
+if-goto NEGATIVE
+push argument 0
+goto EndABS
+label NEGATIVE
+push argument 0 
+neg 
+label EndABS 
+return 
+
+label end

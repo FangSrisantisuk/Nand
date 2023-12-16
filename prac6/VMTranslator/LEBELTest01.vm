@@ -1,0 +1,4 @@
+push constant 15
+goto pop0
+label pop0
+pop static 0

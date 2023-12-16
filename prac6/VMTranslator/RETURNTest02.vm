@@ -1,0 +1,59 @@
+// Original code
+push constant 2048
+push constant 4
+call RETURNTest02.arrMax 2
+pop static 0
+goto end
+
+// Function to find the maximum of two numbers
+function RETURNTest02.arrMax 2
+  // Set up local variables
+  push argument 0
+  pop pointer 0
+  push argument 1
+  pop local 0
+  push constant 0
+  pop local 1
+
+  // Start of the loop
+  label LOOP
+  push local 1
+  push constant 1
+  sub
+  push constant 0
+  lt
+  not
+  if-goto ENDLOOP
+
+  // Compare the two numbers
+  push local 0
+  push this 0
+  sub
+  push constant 0
+  lt
+  not
+  if-goto ENDMAX
+
+  // Update local 0 with the maximum value
+  push this 0
+  pop local 0
+
+  // Increment pointers
+  label ENDMAX
+  push pointer 0
+  push constant 1
+  add
+  pop pointer 0
+  push local 1
+  push constant 1
+  add
+  pop local 1
+  goto LOOP
+
+  // End of the loop
+  label ENDLOOP
+  push local 0
+  return
+
+// End label
+label end

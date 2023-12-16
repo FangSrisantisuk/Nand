@@ -1,0 +1,5 @@
+push constant 1
+goto start
+push constant 2
+label start
+pop static 0
